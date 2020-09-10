@@ -29,3 +29,23 @@ docker-service: build-service
 ## dockerize service
 docker-service-push: docker-service
 	docker build -f ./service/Dockerfile -t manifestservice:latest .	
+
+## tests admin service
+test-admin:
+	mvn test ./service-admin/...
+
+## build the service
+build-admin: test-admin
+	mvn clean build
+
+## run the service
+run-admin: build-admin
+	
+
+## dockerize admin
+docker-admin: build-admin
+	
+
+## dockerize admin
+docker-admin-push: docker-admin
+	
