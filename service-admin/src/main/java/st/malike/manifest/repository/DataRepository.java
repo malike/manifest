@@ -6,3 +6,5 @@ package st.malike.manifest.repository;
 public interface DataRepository {
 
 }
+
+
