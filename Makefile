@@ -2,11 +2,12 @@
 include ./service/.env
 
 ## tests the service
-test-service:
+test-service:    
 	go test ./service/...
 
 ## build the service
 build-service: test-service
+	go mod tidy
 	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./service/manifestservice ./service/cmd/main
 
 ## build service api
