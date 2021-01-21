@@ -1,19 +1,36 @@
 #!make
+include ./frontend/.env
 include ./service/.env
 
-## tests the service
+export $(shell sed 's/=.*//' ./frontend/.env)
+
+
+## dockerize frontend
+docker-frontend: 
+	docker build -f ./frontend/Dockerfile -t $$FRONTEND_BUILD_NAME:$$FRONTEND_VERSION .	
+
+## run frontend
+run-frontend: docker-frontend
+    #stop running image
+	docker stop $(docker container ls -q -f name=$$FRONTEND_BUILD_NAME ) || true && echo 'stopped running service' || echo 'nothing to stop'
+	docker run -d -p $$FRONTEND_PORT:80 $$FRONTEND_BUILD_NAME:$$FRONTEND_VERSION
+
+## dockerize frontend
+docker-frontend-push: docker-frontend
+	docker build -f ./service/Dockerfile -t $$FRONTEND_BUILD_NAME:$$FRONTEND_VERSION .	
+
+## tests  service
 test-service:    
 	go test ./service/...
 
-## build the service
+## build  service
 build-service: test-service
-	go mod tidy
-	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./service/manifestservice ./service/cmd/main
+	go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./service/manifestservice ./service/cmd/main
 
 ## build service api
 build-service-api: build-service
 	which swagger || (GO111MODULE=off go get -u github.com/go-swagger/go-swagger/cmd/swagger)
-	go mod vendor && swagger generate spec -o ./service/swagger.yaml --scan-models
+	go mod vendor && swagger generate spec -o ./service/api/swagger.yaml --scan-models
 
 ## run the service
 run-service: build-service
@@ -25,21 +42,21 @@ serve-service-api: build-service
 
 ## dockerize service
 docker-service: build-service
-	docker build -f ./service/Dockerfile -t manifestservice:latest .	
+	docker build -f ./service/Dockerfile -t manifest_service:latest .	
 
 ## dockerize service
 docker-service-push: docker-service
-	docker build -f ./service/Dockerfile -t manifestservice:latest .	
+	docker build -f ./service/Dockerfile -t manifest_service:latest .	
 
 ## tests admin service
 test-admin:
 	mvn test ./service-admin/...
 
-## build the service
+## build admin service
 build-admin: test-admin
 	mvn clean build
 
-## run the service
+## run admin service
 run-admin: build-admin
 	
 
