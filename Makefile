@@ -12,7 +12,7 @@ docker-frontend:
 ## run frontend
 run-frontend: docker-frontend
     #stop running image
-	docker stop $(docker container ls -q -f name=$$FRONTEND_BUILD_NAME ) || true && echo 'stopped running service' || echo 'nothing to stop'
+	docker stop $(docker ps -a | grep $$FRONTEND_BUILD_NAME | awk '{print $1}') || true && echo "stopped running service" || echo "nothing to stop"
 	docker run -d -p $$FRONTEND_PORT:80 $$FRONTEND_BUILD_NAME:$$FRONTEND_VERSION
 
 ## dockerize frontend
@@ -38,7 +38,7 @@ run-service: build-service
 
 ## serve service api
 serve-service-api: build-service
-	swagger serve -F=swagger swagger.yaml
+	swagger serve -F=swagger ./api/swagger.yaml
 
 ## dockerize service
 docker-service: build-service
