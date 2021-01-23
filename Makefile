@@ -3,6 +3,7 @@ include ./frontend/.env
 include ./service/.env
 
 export $(shell sed 's/=.*//' ./frontend/.env)
+export $(shell sed 's/=.*//' ./service/.env)
 
 
 ## dockerize frontend
@@ -42,11 +43,11 @@ serve-service-api: build-service
 
 ## dockerize service
 docker-service: build-service
-	docker build -f ./service/Dockerfile -t manifest_service:latest .	
+	docker build -f ./service/Dockerfile -t $$API_BUILD_NAME:$$API_VERSION .	
 
 ## dockerize service
 docker-service-push: docker-service
-	docker build -f ./service/Dockerfile -t manifest_service:latest .	
+	docker build -f ./service/Dockerfile -t $$API_BUILD_NAME:$$API_VERSION .	
 
 ## tests admin service
 test-admin:
