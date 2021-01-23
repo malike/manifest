@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @autor malike_st
+ * @ malike_st
  */
 @SpringBootApplication
 public class Main {

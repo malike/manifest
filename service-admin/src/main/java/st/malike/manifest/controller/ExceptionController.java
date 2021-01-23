@@ -8,7 +8,7 @@ import st.malike.manifest.exception.MissingParameterException;
 import st.malike.manifest.util.JSONResponse;
 
 /**
- * @autor malike_st
+ * @ malike_st
  */
 public class ExceptionController {
 

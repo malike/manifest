@@ -3,7 +3,7 @@ package st.malike.manifest.util;
 import java.io.Serializable;
 
 /**
- * @autor malike_st
+ * @ malike_st
  */
 public class JSONResponse implements Serializable {
 

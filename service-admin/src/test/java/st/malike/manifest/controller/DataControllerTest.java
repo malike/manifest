@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 
 /**
- * @autor malike_st
+ * @ malike_st
  */
 public class DataControllerTest {
 
