@@ -26,7 +26,7 @@ test-service:
 
 ## build  service
 build-service: test-service
-	go mod tidy && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./service/manifestservice ./service/cmd/main
+	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./service/manifestservice ./service/cmd/main
 
 ## build service api
 build-service-api: build-service
@@ -39,7 +39,7 @@ run-service: build-service
 
 ## serve service api
 serve-service-api: build-service
-	swagger serve -F=swagger ./api/swagger.yaml
+	swagger serve -F=swagger ./service/api/swagger.yaml
 
 ## dockerize service
 docker-service: build-service
