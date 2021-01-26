@@ -6,6 +6,9 @@ export $(shell sed 's/=.*//' ./frontend/.env)
 export $(shell sed 's/=.*//' ./service/.env)
 
 
+## restore database
+db-restore:
+
 ## dockerize frontend
 docker-frontend: 
 	docker build -f ./frontend/Dockerfile -t $$FRONTEND_BUILD_NAME:$$FRONTEND_VERSION .	
