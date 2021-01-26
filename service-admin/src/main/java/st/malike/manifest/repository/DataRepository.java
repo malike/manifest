@@ -1,7 +1,7 @@
 package st.malike.manifest.repository;
 
 /**
- * @ malike_st
+ * @author malike_st
  */
 public interface DataRepository {
 

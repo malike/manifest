@@ -1,7 +1,7 @@
 package st.malike.manifest.exception;
 
 /**
- * @ malike_st
+ * @author malike_st
  */
 public class MissingParameterException extends Exception {
 

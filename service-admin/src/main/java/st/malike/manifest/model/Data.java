@@ -19,4 +19,6 @@ public class Data implements Serializable {
     @Indexed
     private Date dateCreated;
 
+    
+
 }

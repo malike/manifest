@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 /**
- * @autor malike_st
+ * @author malike_st
  */
 @Controller
 @ControllerAdvice
