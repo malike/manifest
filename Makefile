@@ -25,24 +25,24 @@ docker-frontend-push: docker-frontend
 
 ## tests  service
 test-service:    
-	go test ./service/...
+	cd ./service/ && go test ../service/... && cd ..
 
 ## build  service
 build-service: test-service
-	CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./service/manifestservice ./service/cmd/main
+	cd ./service/ && CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o ./manifestservice ../service/cmd/main && cd ..
 
 ## build service api
 build-service-api: build-service
-	which swagger || (GO111MODULE=off go get -u github.com/go-swagger/go-swagger/cmd/swagger)
-	go mod vendor && swagger generate spec -o ./service/api/swagger.yaml --scan-models
+	cd ./service/ && which swagger || (GO111MODULE=off go get -u github.com/go-swagger/go-swagger/cmd/swagger)
+	go mod vendor && swagger generate spec -o ./service/api/swagger.yaml --scan-models && cd ..
 
 ## run the service
 run-service: build-service
-	go run ./cmd/main/
+	cd ./service/ && go run ./cmd/main/ && cd ..
 
 ## serve service api
-serve-service-api: build-service
-	swagger serve -F=swagger ./service/api/swagger.yaml
+serve-api: build-service
+	cd ./service/ && swagger serve -F=swagger ./api/swagger.yaml && cd ..
 
 ## dockerize service
 docker-service: build-service

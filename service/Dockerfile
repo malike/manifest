@@ -7,6 +7,6 @@ RUN make build-service
 FROM alpine
 COPY --from=builder /go/src/github.com/malike/manifest/service/manifestservice ./
 COPY --from=builder /go/src/github.com/malike/manifest/service/.env ./
-ENV SERVER_PORT=9090
+ENV API_PORT=9090
 EXPOSE 9090
 ENTRYPOINT ["./manifestservice"]
