@@ -17,6 +17,7 @@ public class Data implements Serializable {
     private String id;
     @Indexed
     private String party;
+    @Indexed
     private String section;
     private String description;
     @Indexed
