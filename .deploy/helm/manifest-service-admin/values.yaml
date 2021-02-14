@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: manifest_admin:1.0.0
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
@@ -32,7 +32,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 6060
 
 ingress:
   enabled: false
