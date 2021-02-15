@@ -23,6 +23,10 @@ run-frontend: docker-frontend
 docker-frontend-push: docker-frontend
 	docker build -f ./service/Dockerfile -t $$FRONTEND_BUILD_NAME:$$FRONTEND_VERSION .	
 
+##helm service push:
+helm-frontend-push: docker-frontend-push
+
+
 ## tests  service
 test-service:    
 	cd ./service/ && go test ../service/... && cd ..
@@ -52,6 +56,10 @@ docker-service: build-service
 docker-service-push: docker-service
 	docker build -f ./service/Dockerfile -t $$API_BUILD_NAME:$$API_VERSION .	
 
+##helm service push:
+helm-service-push: docker-service-push
+
+
 ## tests admin service
 test-admin:
 	mvn test ./service-admin/...
@@ -70,6 +78,11 @@ docker-admin: build-admin
 
 ## dockerize admin
 docker-admin-push: docker-admin
+
+##helm service push:
+helm-admin-push: docker-admin-push
+
+
 	
 
 	
