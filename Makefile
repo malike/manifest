@@ -5,6 +5,9 @@ include ./service/.env
 export $(shell sed 's/=.*//' ./frontend/.env)
 export $(shell sed 's/=.*//' ./service/.env)
 
+docker_build_all: docker-frontend build-service build-admin
+docker_push_all: docker-frontend-push docker-service-push docker-admin-push
+helm_pack_all: helm-frontend-push helm-service-push helm-admin-push
 
 ## restore database
 db-restore:
@@ -81,6 +84,12 @@ docker-admin-push: docker-admin
 
 ##helm service push:
 helm-admin-push: docker-admin-push
+
+#Deploy with Docker compose
+docker-compose-deploy: docker_build_all
+	docker-compose -f ./.deploy/docker-compose/docker-compose.yml up -d
+
+
 
 
 	
